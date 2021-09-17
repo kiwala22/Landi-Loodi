@@ -2,7 +2,7 @@
 lock "~> 3.16.0"
 
 set :application, "Landi-Loodi"
-set :repo_url, "git@bitbucket.org:kiwala22/lukoma-medical-store.git"
+set :repo_url, "git@bitbucket.org:kiwala22/landi-loodi.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -13,7 +13,7 @@ set :deploy_to, "/var/www/html/rentals"
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
-set :ssh_options, {:forward_agent => true, port: 8181}
+set :ssh_options, {:forward_agent => true, port: 8181, keys: "/home/mkiwala/.ssh/new/id_rsa"}
 
 set :deploy_via, :copy
 
