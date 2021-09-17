@@ -1,4 +1,4 @@
-class Api::MembersController < ApplicationController
+class Api::HomeController < ApplicationController
     before_action :authenticate_admin!
   
     def index
