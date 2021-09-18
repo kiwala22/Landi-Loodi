@@ -7,7 +7,7 @@ Rails.application.routes.draw do
              }
 
   namespace :api do
-    match 'admin-info' => 'home#show', via: [:get]
+    match 'admin-info' => 'home#index', via: [:get]
     resources :tenants
     resources :rentals
     resources :payments
