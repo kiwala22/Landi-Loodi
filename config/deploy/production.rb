@@ -46,7 +46,7 @@ server "161.35.173.43", user: "deploy", roles: %w{app db web}
 # Global options
 # --------------
  set :ssh_options, {
-   keys: %w(/home/mkiwala/.ssh/new/id_rsa),
+   keys: %w(/home/mkiwala/.ssh/deploy/id_rsa),
    forward_agent: true,
    auth_methods: %w(publickey),
    port: 8181
