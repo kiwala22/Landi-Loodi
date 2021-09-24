@@ -1,4 +1,5 @@
 class Admin < ApplicationRecord
+  has_many :payments
   attr_writer :login
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

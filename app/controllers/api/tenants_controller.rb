@@ -1,6 +1,6 @@
 class Api::TenantsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_tenant, only: [:show, :update, :destroy]
+  before_action :set_tenant, only: [:update]
 
   # GET /tenants
   def index
@@ -21,7 +21,7 @@ class Api::TenantsController < ApplicationController
     if @tenant.save
       render json: @tenant, status: :ok
     else
-      render json: @tenant.errors, status: :unprocessable_entity
+      render json: @tenant.errors.messages.first[1], status: 422
     end
   end
 
@@ -30,7 +30,7 @@ class Api::TenantsController < ApplicationController
     if @tenant.update(tenant_params)
       render json: @tenant
     else
-      render json: @tenant.errors, status: :unprocessable_entity
+      render json: @tenant.errors.messages.first[1], status: 422
     end
   end
 

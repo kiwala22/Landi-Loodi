@@ -1,10 +1,24 @@
 class Api::ContractsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_contract, only: [:show, :update, :destroy]
+  before_action :set_contract, only: [:update]
 
   # GET /contracts
   def index
-    @contracts = Contract.all
+    @contracts = []
+    contracts = Contract.all
+
+    ## Reformat Contracts Data for FE
+    contracts.each do |event|
+      contract = event.as_json
+
+      ## Reformated data
+      contract["tenant_name"] = event.tenant.surname
+      contract["phone_number"] = event.tenant.phone_number
+      contract["rental_number"] = event.rental.rental_number
+
+      ## Push the formatted contracts to the contracts array
+      @contracts.push(contract)
+    end
 
     render json: @contracts
   end
@@ -16,12 +30,28 @@ class Api::ContractsController < ApplicationController
 
   # POST /contracts
   def create
-    @contract = Contract.new(contract_params)
+
+    if Rental.find(contract_params[:rental_id]).status == "Occupied"
+      render json: ["Rental not Available."], status: 400
+      return
+    end
+    duration = TimeDifference.between(contract_params[:start_date], contract_params[:end_date]).humanize
+    @contract = Contract.new(contract_params.merge(
+      duration: duration
+    ))
 
     if @contract.save
-      render json: @contract, status: :ok
+      ##Find Rental and change status to Occupied
+      @contract.rental.update(status: "Occupied")
+      ## Format Contract Data
+      contract = @contract.as_json
+      contract["tenant_name"] = @contract.tenant.surname
+      contract["phone_number"] = @contract.tenant.phone_number
+      contract["rental_number"] = @contract.rental.rental_number
+
+      render json: contract, status: :ok
     else
-      render json: @contract.errors, status: :unprocessable_entity
+      render json: @contract.errors.messages.first[1], status: 422
     end
   end
 

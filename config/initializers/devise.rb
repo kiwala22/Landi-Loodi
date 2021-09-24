@@ -103,7 +103,7 @@ Devise.setup do |config|
     #jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
     #jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
     jwt.secret = 'ead2c4efd3d9f35c43f3f1f57160aee85ae615af844e973744700bbaba9c32052f7aeaa32f63c1f9a45392f301a04875ee3a90bc8c04181297d51d236127537d'
-    #jwt.expiration_time = 1.day.to_i
+    jwt.expiration_time = 1.year.to_i
   end
 
   # By default, Devise cleans up the CSRF token on authentication to

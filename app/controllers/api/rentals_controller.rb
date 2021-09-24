@@ -1,17 +1,12 @@
 class Api::RentalsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_rental, only: [:show, :update, :destroy]
+  before_action :set_rental, only: [:update]
 
   # GET /rentals
   def index
     @rentals = Rental.all
 
     render json: @rentals
-  end
-
-  # GET /rentals/1
-  def show
-    render json: @rental
   end
 
   # POST /rentals
@@ -21,7 +16,7 @@ class Api::RentalsController < ApplicationController
     if @rental.save
       render json: @rental, status: :ok
     else
-      render json: @rental.errors, status: :unprocessable_entity
+      render json: @rental.errors.messages.first[1], status: 422
     end
   end
 
@@ -30,7 +25,7 @@ class Api::RentalsController < ApplicationController
     if @rental.update(rental_params)
       render json: @rental
     else
-      render json: @rental.errors, status: :unprocessable_entity
+      render json: @rental.errors.messages.first[1], status: 422
     end
   end
 

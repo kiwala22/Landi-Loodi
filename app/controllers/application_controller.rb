@@ -6,6 +6,7 @@ class ApplicationController < ActionController::API
 
     def configure_permitted_parameters
         added_attrs = %i[
+          username
           phone_number
           email
           password
