@@ -13,7 +13,7 @@ set :deploy_to, "/var/www/html/rentals"
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
-set :ssh_options, {:forward_agent => true, port: 8181, keys: "/home/mkiwala/.ssh/new/id_rsa"}
+set :ssh_options, {:forward_agent => true, port: 8181}
 
 set :deploy_via, :copy
 
