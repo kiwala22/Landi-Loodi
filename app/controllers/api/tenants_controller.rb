@@ -21,16 +21,16 @@ class Api::TenantsController < ApplicationController
     if @tenant.save
       render json: @tenant, status: :ok
     else
-      render json: @tenant.errors.messages.first[1], status: 422
+      render json: {message: @tenant.errors.messages.first[1]}, status: 422
     end
   end
 
   # PATCH/PUT /tenants/1
   def update
     if @tenant.update(tenant_params)
-      render json: @tenant
+      render json: @tenant, status: :ok
     else
-      render json: @tenant.errors.messages.first[1], status: 422
+      render json: {message: @tenant.errors.messages.first[1]}, status: 422
     end
   end
 

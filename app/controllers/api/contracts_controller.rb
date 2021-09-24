@@ -51,16 +51,16 @@ class Api::ContractsController < ApplicationController
 
       render json: contract, status: :ok
     else
-      render json: @contract.errors.messages.first[1], status: 422
+      render json: {message: @contract.errors.messages.first[1]}, status: 422
     end
   end
 
   # PATCH/PUT /contracts/1
   def update
     if @contract.update(contract_params)
-      render json: @contract
+      render json: @contract, status: :ok
     else
-      render json: @contract.errors, status: :unprocessable_entity
+      render json: {message: @contract.errors.messages.first[1]}, status: 422
     end
   end
 

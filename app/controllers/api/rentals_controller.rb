@@ -16,16 +16,16 @@ class Api::RentalsController < ApplicationController
     if @rental.save
       render json: @rental, status: :ok
     else
-      render json: @rental.errors.messages.first[1], status: 422
+      render json: {message: @rental.errors.messages.first[1]}, status: 422
     end
   end
 
   # PATCH/PUT /rentals/1
   def update
     if @rental.update(rental_params)
-      render json: @rental
+      render json: @rental, status: :ok
     else
-      render json: @rental.errors.messages.first[1], status: 422
+      render json: {message: @rental.errors.messages.first[1]}, status: 422
     end
   end
 

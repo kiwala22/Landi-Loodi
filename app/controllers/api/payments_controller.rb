@@ -45,16 +45,16 @@ class Api::PaymentsController < ApplicationController
 
       render json: payment, status: :ok
     else
-      render json: @payment.errors.messages.first[1], status: 422
+      render json: {message: @payment.errors.messages.first[1]}, status: 422
     end
   end
 
   # PATCH/PUT /payments/1
   def update
     if @payment.update(payment_params)
-      render json: @payment
+      render json: @payment, status: :ok
     else
-      render json: @payment.errors, status: :unprocessable_entity
+      render json: {message: @payment.errors.messages.first[1]}, status: 422
     end
   end
 
